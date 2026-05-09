@@ -1,47 +1,55 @@
-import java.awt.Toolkit;
 import java.awt.*;
 
-public class Animation {
-	Image[] image = new Image[7];
-	String direction = "dn";
-	int current = 0;
-	int duration = 10;
-	int delay;
-	String name;
+
+public class Animation
+{
+	Image[] image;
 	
-	public Animation(String name, int duration, String direction, String filetype) {
-		this.name = name;
-		this.direction = direction;
+	int current = 0;
+	
+	int duration;
+	int delay;
+	
+	public Animation(String name, int count, int duration, String filetype)
+	{
+		image = new Image[count];
+		
 		this.duration = duration;
+		
 		delay = duration;
 		
-		for(int i =0; i< image.length; i++) {
-			image[i] = Toolkit.getDefaultToolkit().getImage(name + "-" + this.direction + i + "." + filetype);
+		for(int i = 0; i < image.length; i++)
+		{
+			image[i] = getImage(name + "_" + i + "." + filetype);
 		}
 	}
 	
-	public Image stillImage() {
-		return image[0];  
+	
+	public Image stillImage()
+	{
+		return image[0];
 	}
 	
-	public Image nextImage() {
-		
+	
+	public Image nextImage()
+	{
 		delay--;
-		if(name.equals("y") || (name.equals("v"))) {
-			if(delay == 0) { 
-				if(direction.equals("dn") || direction.equals("up")) { 
-					if(current == 6) 	current = 0;
-					else 				current++;
-				}
-				else {
-					if(current == 4) 	current = 0;
-					else 				current++;
-				}
-				delay = duration;
-			}
+		
+		if(delay == 0)
+		{
+			if( current == image.length-1)   current = 1;
+			else                             current++;
+			
+			delay = duration;
 		}
-		
-		
-		return image[current]; // return current image
+				
+		return image[current];
 	}
+	
+	
+	public Image getImage(String filename)
+	{
+		return Toolkit.getDefaultToolkit().getImage(filename);
+	}
+
 }

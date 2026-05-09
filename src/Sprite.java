@@ -1,74 +1,78 @@
 import java.awt.Graphics;
 
-public class Sprite {
+public class Sprite extends Rect{
 	String name;
 	
-	int x;
-	int y;
+	boolean moving = false;	
+	boolean physics = false;
 	
-	int w;
-	int h;
 	
-	int direction;
-	boolean moving = false;
-	
-	// Constant values that are used to index the animation array to select the correct animation for the direction the soldier is moving
-	static final int UP = 0;
-	static final int DN = 1;
-	static final int LT = 2;
-	static final int RT = 3;
 	
 	Animation[] animation = new Animation[4];
-	
-	boolean selected = false;
 	
 	String[] pose;
 	
 	public Sprite(String name, int x, int y, int w, int h, int direction, String[] pose)
 	{
+		super(x, y, w, h);
 		this.name = name;
 		this.pose = pose;
 		
 		for(int i = 0; i < animation.length; i++) {
-			animation[i] = new Animation(name, 7, pose[i], "png");
+			animation[i] = new Animation(name + pose[i], 7, 1, "png");
 		}
 		
-		this.x = x;
-		this.y = y;
-		
-		this.w = w;
-		this.h = h;
-		
 		this.direction = direction;
-	}
+	}	
 	
-	public boolean isSelected() {
-		return selected;
-	}
-	
-	public void setSelected() {
-		selected = true;
-	}
-	
-	public void clearSelected() {
-		selected = false;
-	}
-	
-	public boolean overlaps(Rect r)
+	public void move()
 	{
-		return (x <= r.x + r.w) &&
-			   (y <= r.y + r.h) &&
-			   
-			   (r.x <= x + w)   &&
-			   (r.y <= y + h);	
+		x += vx;		
+		y += vy;
+		
+		if (physics == false)
+		{
+			vx = 0;
+			vy = 0;
+		}
 	}
 	
-	public boolean contains(int mx, int my)
+	
+	public void goUP(int dy)
 	{
-		return (mx > x)   && 
-			   (mx < x+w) && 
-			   (my > y)   && 
-			   (my < y+h);
+		vy = -dy;
+		
+		direction = UP;
+		
+		moving = true;
+	}
+	
+	public void goDN(int dy)
+	{
+		vy = dy;
+
+		direction = DN;
+
+		moving = true;
+	}
+	
+	public void goLT(int dx)
+	{
+		vx = -dx;
+
+		direction = LT;
+		
+		moving = true;
+	}
+	
+	public void goRT(int dx)
+	{
+		vx = dx;
+		
+		direction = RT;
+
+		moving = true;
+
 	}
 	
 	public void moveUP(int dy) {
@@ -103,7 +107,7 @@ public class Sprite {
 			g.drawImage(animation[direction].stillImage(), x, y, w, h, null);
 		}
 		
-		new Rect(x, y, w, h).draw(g);
+//		new Rect(x, y, w, h).draw(g);
 		
 		moving = false;
 	}
