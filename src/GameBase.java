@@ -3,12 +3,14 @@ import java.awt.*;
 import java.awt.event.*;
 
 public abstract class GameBase extends Applet implements Runnable, KeyListener, MouseListener, MouseMotionListener
-{		
-	Image off_screen;
-	Graphics off_screen_g;
+{
+	Image     off_screen;
+	Graphics  off_screen_g;
+	
 	
 	boolean[] pressing = new boolean[1024];
 	
+		
 	public static final int UP 			= KeyEvent.VK_UP;
 	public static final int DN 			= KeyEvent.VK_DOWN;
 	public static final int LT 			= KeyEvent.VK_LEFT;
@@ -77,16 +79,14 @@ public abstract class GameBase extends Applet implements Runnable, KeyListener, 
 	public static final int F11         = KeyEvent.VK_F11;
 	public static final int F12         = KeyEvent.VK_F12;
 	
-	boolean pressing_UP = false;
-	boolean pressing_DN = false;
-	boolean pressing_LT = false;
-	boolean pressing_RT = false;
 	
 	int mx;
 	int my;
 	
 	
 	Thread t;
+	
+	
 	
 	public final void run()
 	{
@@ -109,16 +109,26 @@ public abstract class GameBase extends Applet implements Runnable, KeyListener, 
 	
 	public abstract void inGameLoop();
 	
-	public final void update(Graphics g) {
+	
+	public final void update(Graphics g)
+	{
 		off_screen_g.clearRect(0, 0, 1920, 1080);
+		
 		paint(off_screen_g);
-		g.drawImage(off_screen, 0, 0, null);
+		
+		g.drawImage(off_screen, 0, 0 , null);		
 	}
 	
+	
+	public abstract void initialize();
+	
+	
 	public final void init()
-	{		
-		off_screen = createImage(1920, 1080);
+	{
+		
+		off_screen   = createImage(1920, 1080);
 		off_screen_g = off_screen.getGraphics();
+			
 		
 		requestFocus();
 		
@@ -127,33 +137,34 @@ public abstract class GameBase extends Applet implements Runnable, KeyListener, 
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		
+		initialize();
 		
 		t = new Thread(this);
 		
 		t.start();
 	}
 	
-	public void mouseMoved(MouseEvent 		e) {}
-	public void mouseDragged(MouseEvent 	e) {}
-	public void mousePressed(MouseEvent 	e) {}
-	public void mouseReleased(MouseEvent 	e) {}	
-	public void mouseClicked(MouseEvent 	e) {}
-	public void mouseEntered(MouseEvent 	e) {}
-	public void mouseExited(MouseEvent 		e) {}
+	public void mouseMoved   (MouseEvent e){}
+	public void mouseDragged (MouseEvent e){}
+	public void mousePressed (MouseEvent e){}
+	public void mouseReleased(MouseEvent e){}
+	public void mouseClicked (MouseEvent e){}
+	public void mouseEntered (MouseEvent e){}
+	public void mouseExited  (MouseEvent e){}
 	
 	
 
-	public final void keyPressed(KeyEvent e){		
-		pressing[e.getKeyCode()] = true;		
+	public final void keyPressed(KeyEvent e)
+	{		
+		pressing[e.getKeyCode()] = true;	
 	}
 	
-	public final void keyReleased(KeyEvent e)	{
-		pressing[e.getKeyCode()] = false;				
+	public final void keyReleased(KeyEvent e)
+	{
+		pressing[e.getKeyCode()] = false;	
 	}
 	
-	public final void keyTyped(KeyEvent e)  {}
-	
-	
+	public void keyTyped(KeyEvent e)  {}
 	
 
 	

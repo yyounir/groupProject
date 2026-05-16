@@ -1,14 +1,15 @@
 import java.awt.*;
 
-
 public class Animation
 {
+	
 	Image[] image;
 	
 	int current = 0;
 	
 	int duration;
 	int delay;
+	
 	
 	public Animation(String name, int count, int duration, String filetype)
 	{
@@ -51,5 +52,5 @@ public class Animation
 	{
 		return Toolkit.getDefaultToolkit().getImage(filename);
 	}
-
+	
 }

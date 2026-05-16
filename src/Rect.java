@@ -13,16 +13,18 @@ public class Rect
 	
 	
 	boolean selected = false;
-
+	
 	int direction;
 	
-	// Constant values that are used to index the animation array to select the correct animation for the direction the soldier is moving
+	// Constant values that are used to index the animation array to select the 
+	// correct animation for the direction the soldier is moving
+	// Update: this will be for our pirate player
 	static final int UP = 0;
 	static final int DN = 1;
 	static final int LT = 2;
 	static final int RT = 3;
 	
-//	Diagonal
+    // Moving diagonally
 	static final int UL = 4;
 	static final int DL = 5;
 	static final int UR = 6;
@@ -129,5 +131,4 @@ public class Rect
 		g.drawRect(x, y, w, h);
 	}
 	
-}	
-	
+}
