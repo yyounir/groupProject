@@ -6,7 +6,7 @@ A 2D side-scrolling platformer built in Java where you play as a swashbuckling p
 
 ---
 
-## 📹 Video Explanation
+## 📹 Video Explanations
 https://www.loom.com/share/3ed5218efa46418daa306a2dc24893f8 <br>
 https://www.loom.com/share/03a4675920184847950cc702e59c9156 <br>
 https://youtu.be/XkYoc5CxsGI <br>
